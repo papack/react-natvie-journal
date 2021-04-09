@@ -10,12 +10,14 @@ import {
 } from "react-native";
 
 export default function App() {
-  const [text, setText] = useState("");
   const [data, setData] = useState([]);
 
-  const handleSubmitEdit = () => {
-    setData([...data, { date: new Date().toTimeString(), text: text }]);
-    setText("");
+  let textInputRef;
+
+  //user input
+  const handleSubmitEdit = (textToAdd) => {
+    setData([...data, { date: new Date().toTimeString(), text: textToAdd }]);
+    textInputRef.clear();
   };
 
   //show "no content hint or flatlist"
@@ -38,11 +40,8 @@ export default function App() {
           returnKeyType="done"
           style={styles.input}
           placeholder="Tagebucheintrag..."
-          value={text}
-          onChangeText={(text) => {
-            setText(text.toString());
-          }}
-          onSubmitEditing={handleSubmitEdit}
+          ref={(item) => (textInputRef = item)}
+          onSubmitEditing={(e) => handleSubmitEdit(e.nativeEvent.text)}
         />
       </KeyboardAvoidingView>
       <StatusBar style="auto" />
