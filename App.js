@@ -1,6 +1,13 @@
 import { StatusBar } from "expo-status-bar";
 import React, { useState } from "react";
-import { StyleSheet, FlatList, TextInput, Text, View } from "react-native";
+import {
+  StyleSheet,
+  FlatList,
+  TextInput,
+  Text,
+  View,
+  KeyboardAvoidingView,
+} from "react-native";
 
 export default function App() {
   const [text, setText] = useState("");
@@ -26,16 +33,18 @@ export default function App() {
   return (
     <View style={styles.container}>
       {content}
-      <TextInput
-        returnKeyType="done"
-        style={styles.input}
-        placeholder="Tagebucheintrag..."
-        value={text}
-        onChangeText={(text) => {
-          setText(text.toString());
-        }}
-        onSubmitEditing={handleSubmitEdit}
-      />
+      <KeyboardAvoidingView>
+        <TextInput
+          returnKeyType="done"
+          style={styles.input}
+          placeholder="Tagebucheintrag..."
+          value={text}
+          onChangeText={(text) => {
+            setText(text.toString());
+          }}
+          onSubmitEditing={handleSubmitEdit}
+        />
+      </KeyboardAvoidingView>
       <StatusBar style="auto" />
     </View>
   );
