@@ -11,13 +11,21 @@ export default function App() {
     setText("");
   };
 
-  return (
-    <View style={styles.container}>
+  //show "no content hint or flatlist"
+  let content = <Text>no journal entrys..</Text>;
+  if (data.length > 0) {
+    content = (
       <FlatList
         data={data}
         keyExtractor={(item) => item.date}
         renderItem={({ item }) => <Text>{item.text}</Text>}
       />
+    );
+  }
+
+  return (
+    <View style={styles.container}>
+      {content}
       <TextInput
         returnKeyType="done"
         style={styles.input}
